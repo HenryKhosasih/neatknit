@@ -9,7 +9,7 @@ import Checkout from "./routes/checkout/checkout.component";
 const App = () => {
 	return (
 		<Routes>
-			<Route path="/" element={<Navigation />}>
+			<Route path="/" element={<Navigation />}>	
 				<Route index element={<Home />} />
 				<Route path="/auth" element={<Authentication />} />
 				<Route path="/shop" element={<Shop />} />

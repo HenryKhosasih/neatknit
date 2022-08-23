@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Live app can be access [here](https://graceful-eclair-69ab47.netlify.app/).
 
 ## Available Scripts
 

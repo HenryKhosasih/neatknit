@@ -6,7 +6,7 @@ import FormInput from "../form-input/form-input.component";
 import {
 	signInWithGooglePopup,
 	signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase.utils";
+} from "../../utils/firebase/firebase.utils";
 
 import "./sign-in-form.styles.jsx";
 import { ButtonsContainer, SignInContainer } from "./sign-in-form.styles.jsx";

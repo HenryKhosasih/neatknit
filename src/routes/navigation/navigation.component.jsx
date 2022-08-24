@@ -8,7 +8,7 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 import { UserContext } from "../../components/contexts/user.context";
 import { CartContext } from "../../components/contexts/cart.context";
 
-import { signOutUser } from "../../utils/firebase.utils";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import {
 	LogoContainer,

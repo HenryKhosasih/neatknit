@@ -4,6 +4,7 @@ import {
 	applyMiddleware,
 } from "redux";
 import logger from "redux-logger";
+import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
@@ -12,15 +13,16 @@ import { rootReducer } from "./root-reducer";
 const persistConfig = {
 	key: "root",
 	storage,
-	blacklist: ["user"],
+	whitelist: ["cart"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // disabling logger in production env
-const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
-	Boolean
-);
+const middleWares = [
+	process.env.NODE_ENV !== "production" && logger,
+	thunk,
+].filter(Boolean);
 
 // to activate redux compose extension on Chrome if not in production env or use regular compose
 const composeEnhancer =

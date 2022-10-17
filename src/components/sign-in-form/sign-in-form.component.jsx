@@ -1,22 +1,24 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 
 import {
-	signInWithGooglePopup,
-	signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
+	emailSignInStart,
+	googleSignInStart,
+} from "../../store/user/user.action";
 
 import "./sign-in-form.styles.jsx";
 import { ButtonsContainer, SignInContainer } from "./sign-in-form.styles.jsx";
 
-const SignInForm = () => {
-	const defaultFormFields = {
-		email: "",
-		password: "",
-	};
+const defaultFormFields = {
+	email: "",
+	password: "",
+};
 
+const SignInForm = () => {
+	const dispatch = useDispatch();
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { email, password } = formFields;
 
@@ -24,34 +26,25 @@ const SignInForm = () => {
 		setFormFields(defaultFormFields);
 	};
 
-	const handleChange = (event) => {
-		event.preventDefault();
-
-		const { name, value } = event.target;
-		setFormFields({ ...formFields, [name]: value });
+	const signInWithGoogle = async () => {
+		dispatch(googleSignInStart());
 	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
 		try {
-			await signInAuthUserWithEmailAndPassword(email, password);
+			dispatch(emailSignInStart(email, password));
 			resetFormFields();
 		} catch (error) {
-			switch (error.code) {
-				case "auth/wrong-password":
-				case "auth/user-not-found":
-					alert("You have entered an invalid username or password");
-					break;
-				default:
-					alert(error);
-					break;
-			}
+			console.log("user sign in failed", error);
 		}
 	};
 
-	const logGoogleUser = async () => {
-		await signInWithGooglePopup();
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+
+		setFormFields({ ...formFields, [name]: value });
 	};
 
 	return (
@@ -81,7 +74,7 @@ const SignInForm = () => {
 					<Button
 						buttonType={BUTTON_TYPE_CLASSES.google}
 						type="button"
-						onClick={logGoogleUser}
+						onClick={signInWithGoogle}
 					>
 						Google Sign In
 					</Button>
